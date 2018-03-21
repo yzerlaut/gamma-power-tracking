@@ -1,9 +1,9 @@
-PLUGIN_NAME = plugin_template
+PLUGIN_NAME = gamma_power_tracking
 
-HEADERS = plugin-template.h
+HEADERS = gamma-power-tracking.h
 
-SOURCES = plugin-template.cpp\
-          moc_plugin-template.cpp\
+SOURCES = gamma-power-tracking.cpp\
+          moc_gamma-power-tracking.cpp\
 
 LIBS = 
 
