@@ -22,34 +22,46 @@
  */
 
 #include <default_gui_model.h>
+#include <math.h>
+
+const int Length_LFP_vector = 10000; 
+const double w0 = 5.; // parameter for wavelet extent
 
 class GammaPowerTracking : public DefaultGUIModel
 {
 
   Q_OBJECT
 
+
 public:
+
   GammaPowerTracking(void);
   virtual ~GammaPowerTracking(void);
 
   void execute(void);
   void createGUI(DefaultGUIModel::variable_t*, int);
-  void customizeGUI(void);
+  void increase_Real_and_Imaginary_of_Morlet_TF(double*, double*, double,
+						double, double, double,
+						int, int);
 
 protected:
   virtual void update(DefaultGUIModel::update_flags_t);
 
 private:
-  double some_parameter;
-  double some_state;
+  void initParameters();
+  void initWavelets();
+
+  double LFP_history_vector[Length_LFP_vector];
+  double wavelet1_freq;
+  double wavelet2_freq;
+  int Length_wavelet1;
+  int Length_wavelet2;
+  double mean_LFP_last;
+  double mean_LFP_new;
   double period;
 
-  void initParameters();
+  long long count;
+  double systime;
 
-private slots:
-  // these are custom functions that can also be connected to events
-  // through the Qt API. they must be implemented in plugin_template.cpp
 
-  void aBttn_event(void);
-  void bBttn_event(void);
 };
