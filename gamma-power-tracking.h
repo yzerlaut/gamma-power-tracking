@@ -24,8 +24,9 @@
 #include <default_gui_model.h>
 #include <math.h>
 
-const int Length_LFP_vector = 10000; 
-const double w0 = 5.; // parameter for wavelet extent
+const int Length_LFP_vector = 2000; 
+const int Length_pLFP_vector = 10; 
+const double w0 = 6.; // parameter for wavelet extent
 
 class GammaPowerTracking : public DefaultGUIModel
 {
@@ -41,8 +42,11 @@ public:
   void execute(void);
   void createGUI(DefaultGUIModel::variable_t*, int);
   void increase_Real_and_Imaginary_of_Morlet_TF(double*, double*, double,
-						double, double, double,
+						double, double, double, double,
 						int, int);
+  void normalization_factor(double*,
+			    double, double, double);
+
 
 protected:
   virtual void update(DefaultGUIModel::update_flags_t);
@@ -51,15 +55,27 @@ private:
   void initParameters();
   void initWavelets();
 
+  /* LFP props */
   double LFP_history_vector[Length_LFP_vector];
-  double wavelet1_freq;
-  double wavelet2_freq;
-  int Length_wavelet1;
-  int Length_wavelet2;
+  double pLFP_history_vector[Length_pLFP_vector];
+  double pLFP_history_norm_vector[Length_pLFP_vector];
   double mean_LFP_last;
   double mean_LFP_new;
-  double period;
+  double cum_pLFP;
 
+  /* WAVELET */
+  double wavelet1_freq;
+  double wavelet1_norm;
+  /* double wavelet2_freq; */
+  int Length_wavelet1;
+  int Length_wavelet2;
+
+  /* SMOOTHING */
+  double Tsmoothing;
+  int ismoothing;
+
+  /* SYSTEM */
+  double period;
   long long count;
   double systime;
 
